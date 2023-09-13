@@ -26,6 +26,5 @@ jobs:
       - 
         name: Release
         run: |
-          git pull --tags
-          gh release create ${{ inputs.push_tag }} --notes ${{ inputs.note }}
+          gh release create "${{ inputs.push_tag }}" --notes "${{ inputs.note }}"
         shell: bash
