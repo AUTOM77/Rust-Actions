@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      cargo_loc:
+      cargo_path:
         default: 'Cargo.toml'
         required: true
         type: string
@@ -22,7 +22,9 @@ jobs:
       - 
         id: cargo
         run: |
-          version=$(awk -F ' = ' '$1 ~ /version/ { gsub(/["]/, "", $2); printf("%s",$2) }' ${{ inputs.cargo_loc }})
+          version=$(awk -F ' = ' '$1 ~ /version/ { gsub(/["]/, "", $2); printf("%s",$2) }' $CARGO_LOCA)
           echo version=$version >> $GITHUB_OUTPUT
         name: Parse Version
         shell: bash
+        env:
+          CARGO_LOCA: ${{ inputs.cargo_path }}
