@@ -20,7 +20,7 @@ jobs:
   call:
     runs-on: ubuntu-latest
     outputs:
-          tag: ${{ steps.push.outputs.tag }}
+      tag: ${{ steps.push.outputs.tag }}
     steps:
       - 
         name: Checkout

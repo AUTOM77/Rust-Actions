@@ -16,7 +16,7 @@ jobs:
   parse:
     runs-on: ubuntu-latest
     outputs:
-          version: ${{ steps.cargo.outputs.version }}
+      version: ${{ steps.cargo.outputs.version }}
     steps:
       - 
         name: Checkout
