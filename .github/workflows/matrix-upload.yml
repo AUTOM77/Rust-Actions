@@ -1,0 +1,50 @@
+name: matrix-upload
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CARGO_TERM_COLOR: always
+
+on:
+  workflow_call:
+    inputs:
+      binary:
+        default: 'bin'
+        required: true
+        type: string
+      pushed_tag:
+        default: '0'
+        required: true
+        type: string
+
+jobs:
+  cross-upload:
+    uses: ./.github/workflows/cross-compile.yml
+    strategy:
+      matrix:
+        include:
+          -
+            target: 'x86_64-unknown-linux-musl'
+            platform: 'ubuntu-latest'
+          -
+            target: 'x86_64-unknown-linux-gnu'
+            platform: 'ubuntu-latest'
+          - target: aarch64-unknown-linux-musl
+            platform: ubuntu-latest
+          - target: aarch64-unknown-linux-gnu
+            platform: ubuntu-latest
+          - target: aarch64-apple-darwin
+            platform: macos-latest
+          -
+            target: 'x86_64-apple-darwin'
+            platform: 'macos-latest'
+          -
+            target: 'x86_64-pc-windows-gnu'
+            platform: 'windows-latest'
+          -
+            target: 'x86_64-pc-windows-msvc'
+            platform: 'windows-latest'
+    with:
+      binary: ${{ inputs.binary }}
+      pushed_tag: ${{ inputs.pushed_tag }}
+      target: ${{ matrix.target }}
+      platform: ${{ matrix.platform }}

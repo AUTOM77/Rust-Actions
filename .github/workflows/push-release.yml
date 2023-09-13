@@ -15,7 +15,10 @@ on:
         default: 'None'
         required: true
         type: string
-
+    outputs:
+      pushed_tag:
+        description: "Pushed tag version"
+        value: ${{ jobs.release.outputs.pushed_tag }}
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -26,5 +29,9 @@ jobs:
       - 
         name: Release
         run: |
-          gh release create "${{ inputs.push_tag }}" --notes "${{ inputs.note }}"
+          gh release create $PUSH_TAG --notes $NOTES
+          echo pushed_tag=$PUSH_TAG >> $GITHUB_OUTPUT
         shell: bash
+        env:
+          PUSH_TAG: ${{ inputs.push_tag }}
+          NOTES: "${{ inputs.note }}"

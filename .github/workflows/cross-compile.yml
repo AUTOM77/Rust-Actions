@@ -1,4 +1,4 @@
-name: cross-compile-upload
+name: cross-compile
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
