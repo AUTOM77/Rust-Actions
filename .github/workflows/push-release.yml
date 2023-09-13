@@ -29,9 +29,9 @@ jobs:
       - 
         name: Release
         run: |
-          gh release create $PUSH_TAG --notes $NOTES
+          gh release create $PUSH_TAG --notes "$NOTE"
           echo pushed_tag=$PUSH_TAG >> $GITHUB_OUTPUT
         shell: bash
         env:
           PUSH_TAG: ${{ inputs.push_tag }}
-          NOTES: "${{ inputs.note }}"
+          NOTE: ${{ inputs.note }}
