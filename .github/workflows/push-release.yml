@@ -7,7 +7,7 @@ env:
 on:
   workflow_call:
     inputs:
-      pushed_tag:
+      push_tag:
         default: '0'
         required: true
         type: string
@@ -26,5 +26,5 @@ jobs:
       - 
         name: Release
         run: |
-          gh release create ${{ inputs.pushed_tag }} --notes ${{ inputs.note }}
+          gh release create ${{ inputs.push_tag }} --notes ${{ inputs.note }}
         shell: bash
