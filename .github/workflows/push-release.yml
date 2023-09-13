@@ -22,15 +22,18 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      pushed_tag: ${{ steps.release.outputs.pushed_tag }}
     steps:
       - 
         name: Checkout
         uses: actions/checkout@v3
       - 
-        name: Release
+        id: release
         run: |
           gh release create $PUSH_TAG --notes "$NOTE"
           echo pushed_tag=$PUSH_TAG >> $GITHUB_OUTPUT
+        name: Release
         shell: bash
         env:
           PUSH_TAG: ${{ inputs.push_tag }}
