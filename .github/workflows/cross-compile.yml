@@ -33,17 +33,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       - 
-        run: |
-          curl -fsSL https://sh.rustup.rs | bash -s -- -y
-          source ~/.bashrc
-        shell: bash
-        name: Install Rust
-      - 
-        run: |
-          rustup target add ${{ inputs.target }}
-        shell: bash
-        name: Add toolchain
-      - 
         uses: taiki-e/upload-rust-binary-action@v1.16.0
         with:
           bin: ${{ inputs.binary }}
