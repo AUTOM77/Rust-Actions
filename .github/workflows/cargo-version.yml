@@ -1,0 +1,29 @@
+on:
+  workflow_call:
+    inputs:
+      cargo_loc:
+        default: 'Cargo.toml'
+        required: true
+        type: string
+    outputs:
+      version:
+        description: "parsed version"
+        value: ${{ jobs.parse.outputs.version }}
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    outputs:
+          version: ${{ steps.cargo.outputs.version }}
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        id: cargo
+        run: |
+          version=$(awk -F ' = ' '$1 ~ /version/ { gsub(/["]/, "", $2); printf("%s",$2) }' $CARGO_LOCA)
+          echo version=$version >> $GITHUB_OUTPUT
+        name: Parse Version
+        shell: bash
+        env:
+          CARGO_LOCA: ${{ inputs.cargo_loc }}
