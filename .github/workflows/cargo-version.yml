@@ -22,9 +22,7 @@ jobs:
       - 
         id: cargo
         run: |
-          version=$(awk -F ' = ' '$1 ~ /version/ { gsub(/["]/, "", $2); printf("%s",$2) }' $CARGO_LOCA)
+          version=$(awk -F ' = ' '$1 ~ /version/ { gsub(/["]/, "", $2); printf("%s",$2) }' ${{ inputs.cargo_path }})
           echo version=$version >> $GITHUB_OUTPUT
         name: Parse Version
         shell: bash
-        env:
-          CARGO_LOCA: ${{ inputs.cargo_path }}
