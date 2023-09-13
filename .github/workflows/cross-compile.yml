@@ -19,8 +19,8 @@ on:
         default: 'x86_64-unknown-linux-gnu'
         required: true
         type: string
-      bin:
-        default: 'binary'
+      binary:
+        default: 'bin'
         required: true
         type: string
 
@@ -46,7 +46,7 @@ jobs:
       - 
         uses: taiki-e/upload-rust-binary-action@v1.16.0
         with:
-          bin: ${{ inputs.bin }}
+          bin: ${{ inputs.binary }}
           target: ${{ inputs.target }}
           ref: refs/tags/${{ inputs.pushed_tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
