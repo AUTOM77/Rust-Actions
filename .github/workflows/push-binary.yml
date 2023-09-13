@@ -1,0 +1,58 @@
+name: bin
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: write
+
+on:
+  workflow_call:
+    inputs:
+      pushed_tag:
+        default: '0'
+        required: true
+        type: string
+      platform:
+        default: 'ubuntu-latest'
+        required: true
+        type: string
+      target:
+        default: 'x86_64-unknown-linux-gnu'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ${{ inputs.platform }}
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        run: |
+          curl -fsSL https://sh.rustup.rs | bash -s -- -y
+          source ~/.bashrc
+        shell: bash
+        name: Install Rust
+      - 
+        run: |
+          rustup target add ${{ inputs.target }}
+        shell: bash
+        name: Add toolchain
+      - 
+        run: |
+          cargo build --release --target=${{ inputs.target }}
+        shell: bash
+        name: Build target
+      - 
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}"
+          PREFIX="target/${{ inputs.target }}/release"
+          BIN="$PREFIX/$(ls -Sr $PREFIX | awk 'END {print $1}')""
+          BINN="$REPO_NAME-${{ inputs.target }}"
+          mv $BIN $BINN
+          gh release upload $BINN ${{ inputs.pushed_tag }}
+        shell: bash
+        name: Upload
