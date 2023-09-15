@@ -18,7 +18,7 @@ on:
 
 jobs:
   cross-upload:
-    uses: ./.github/workflows/ccw.yml
+    uses: ./.github/workflows/_ccw.yml
     strategy:
       matrix:
         include:
