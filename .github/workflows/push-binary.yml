@@ -1,4 +1,4 @@
-name: bin
+name: Push-binary(nix_only)
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

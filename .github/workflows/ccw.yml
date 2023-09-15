@@ -1,4 +1,4 @@
-name: cross-compile-worker
+name: Cross-compile-worker(ccw)
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

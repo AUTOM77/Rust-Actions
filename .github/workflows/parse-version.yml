@@ -1,4 +1,4 @@
-name: Cargo-parse-version
+name: Parse-version
 
 on:
   workflow_call:
