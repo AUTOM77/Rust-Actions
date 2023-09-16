@@ -1,0 +1,48 @@
+name: bot
+
+on:
+  workflow_call:
+    inputs:
+      cargo_loc:
+        default: '0'
+        required: true
+        type: string
+      cargo_bin:
+        default: '0'
+        required: true
+        type: string
+      note_hash:
+        default: 'None'
+        required: false
+        type: string
+
+jobs:
+  ready:
+    uses: .github/workflows/cargo-version.yml@main
+    with:
+      cargo_path: ${{ inputs.cargo_loc }}
+
+  push:
+    needs:
+      - ready
+    uses: .github/workflows/create-tag.yml@main
+    with:
+      version: v${{ needs.ready.outputs.version }}
+
+  publish:
+    needs:
+      - push
+    uses: .github/workflows/pre-release.yml@main
+    with:
+      push_tag: ${{ needs.push.outputs.tag }}
+      note: add ${{ needs.push.outputs.tag }}
+
+  cross-release:
+    needs:
+      - pre
+      - publish
+    uses: .github/workflows/release-matrix.yml@main
+    with:
+      binary: ${{ inputs.cargo_bin }}
+      pushed_tag: ${{ needs.publish.outputs.pushed_tag }}
+    
