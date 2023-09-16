@@ -39,7 +39,6 @@ jobs:
 
   cross-release:
     needs:
-      - pre
       - publish
     uses: ./.github/workflows/release-matrix.yml
     with:
