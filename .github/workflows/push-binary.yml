@@ -24,9 +24,7 @@ jobs:
   release:
     runs-on: ${{ inputs.platform }}
     steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - 
         run: |
           curl -fsSL https://sh.rustup.rs | bash -s -- -y

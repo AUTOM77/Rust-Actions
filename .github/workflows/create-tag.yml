@@ -22,9 +22,7 @@ jobs:
     outputs:
       tag: ${{ steps.push.outputs.tag }}
     steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - 
         id: push
         run: |
