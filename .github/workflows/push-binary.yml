@@ -48,6 +48,6 @@ jobs:
           BIN="$PREFIX/$(ls -Sr $PREFIX | awk 'END {print $1}')""
           BINN="$REPO_NAME-${{ inputs.target }}"
           mv $BIN $BINN
-          gh release upload $BINN ${{ inputs.pushed_tag }}
+          gh release upload ${{ inputs.pushed_tag }} $BINN
         shell: bash
         name: Upload
