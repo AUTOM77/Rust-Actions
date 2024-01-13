@@ -1,4 +1,4 @@
-name: bot
+name: botX
 
 on:
   workflow_call:
