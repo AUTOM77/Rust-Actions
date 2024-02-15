@@ -51,14 +51,8 @@ jobs:
           -
             target: 'x86_64-unknown-linux-musl'
             platform: 'ubuntu-latest'
-          -
-            target: 'x86_64-unknown-linux-gnu'
-            platform: 'ubuntu-latest'
           - 
             target: aarch64-unknown-linux-musl
-            platform: ubuntu-latest
-          - 
-            target: aarch64-unknown-linux-gnu
             platform: ubuntu-latest
     with:
       binary: ${{ inputs.cargo_bin }}
