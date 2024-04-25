@@ -30,6 +30,10 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
       - uses: taiki-e/upload-rust-binary-action@v1.18.0
         with:
           bin: ${{ inputs.binary }}
