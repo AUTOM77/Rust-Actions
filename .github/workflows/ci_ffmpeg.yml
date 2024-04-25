@@ -54,12 +54,6 @@ jobs:
           - 
             target: 'aarch64-unknown-linux-musl'
             platform: ubuntu-latest
-          - 
-            target: 'aarch64-apple-darwin'
-            platform: macos-latest
-          -
-            target: 'x86_64-apple-darwin'
-            platform: 'macos-latest'
           -
             target: 'x86_64-pc-windows-gnu'
             platform: 'windows-latest'
