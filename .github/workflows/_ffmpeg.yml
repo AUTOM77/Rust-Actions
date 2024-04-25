@@ -34,7 +34,7 @@ jobs:
         with:
           ffmpeg-version: "7.0.0"
           linking-type: static
-          github-token: ${{ GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: taiki-e/upload-rust-binary-action@v1.18.0
         with:
           bin: ${{ inputs.binary }}
