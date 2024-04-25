@@ -54,9 +54,6 @@ jobs:
           - 
             target: 'aarch64-unknown-linux-musl'
             platform: ubuntu-latest
-          -
-            target: 'x86_64-pc-windows-gnu'
-            platform: 'windows-latest'
     with:
       binary: ${{ inputs.cargo_bin }}
       pushed_tag: ${{ needs.publish.outputs.pushed_tag }}
