@@ -1,4 +1,4 @@
-name: botX
+name: bot_ffmpeg
 
 on:
   workflow_call:

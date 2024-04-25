@@ -1,4 +1,4 @@
-name: ccw_backend
+name: cc_ffmpeg
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
