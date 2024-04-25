@@ -30,11 +30,6 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
-      - uses: FedericoCarboni/setup-ffmpeg@v3.1
-        with:
-          ffmpeg-version: "release"
-          linking-type: static
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: taiki-e/upload-rust-binary-action@v1.18.0
         with:
           bin: ${{ inputs.binary }}
