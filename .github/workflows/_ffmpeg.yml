@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-tools
+          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-tools tree
       - name: Cargo
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
@@ -41,7 +41,7 @@ jobs:
           cargo build --release
       - name: Publish
         run: |
-          ls -al target/release/*
+          tree -L 3
         env:
           BIN: ${{ inputs.binary }}
           RELEASE_TAG: ${{ inputs.pushed_tag }}
