@@ -32,17 +32,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        if: matrix.platform == 'ubuntu-latest'
+        if: ${{ inputs.platform }} == 'ubuntu-latest'
         run: |
           sudo apt update
           sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
 
       - name: Install dependencies (macOS)
-        if: matrix.platform == 'macos-latest'
+        if: ${{ inputs.platform }} == 'macos-latest'
         run: brew install clang curl pkg-config yasm nasm
 
       - name: Install dependencies (Windows)
-        if: matrix.platform == 'windows-latest'
+        if: ${{ inputs.platform }} == 'windows-latest'
         run: |
           choco install llvm
           choco install curl
