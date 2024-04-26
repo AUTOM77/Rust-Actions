@@ -57,9 +57,10 @@ jobs:
           echo $BIN
           echo $BIN_PATH
           echo $RELEASE_TAG
-          gh release upload $RELEASE_TAG $BIN_PATH
+          mv $BIN_PATH $BIN
+          gh release upload $RELEASE_TAG $BIN
         env:
-          BIN: ${{ inputs.binary }}
+          BIN: ${{ inputs.binary }}-${{ inputs.target }}
           BIN_PATH: "target/release/${{ inputs.binary }}" 
           RELEASE_TAG: ${{ inputs.pushed_tag }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
