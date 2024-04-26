@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-gcc
+          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-tools
       - name: Cargo
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
