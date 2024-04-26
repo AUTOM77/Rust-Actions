@@ -51,7 +51,7 @@ jobs:
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
           rustup update nightly && rustup default nightly
-          cargo build --release
+          RUSTFLAGS='-C target-feature=+crt-static' cargo build --release
       - name: Publish
         run: |
           echo $BIN
