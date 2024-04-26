@@ -39,7 +39,7 @@ jobs:
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
           rustup update nightly && rustup default nightly
           rustup component add "${{ inputs.target }}"
-          cargo build --release
+          cargo build --release --target "${{ inputs.target }}"
       - name: Publish
         run: |
           ls -al target/release/*
