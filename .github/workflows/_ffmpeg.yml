@@ -46,16 +46,14 @@ jobs:
           choco install yasm
           choco install nasm
           choco install tree
-      - name: Cargo Build
-        if: ${{ inputs.platform != 'windows-latest' }}
-        run: |
-          curl -fsSL https://sh.rustup.rs | sh -s -- -y
-          rustup update nightly && rustup default nightly
-          cargo build --release
       - name: Publish
         run: |
-          tree -L 3
+          echo $BIN
+          echo $BIN_PATH
+          echo $RELEASE_TAG
+          gh release upload $RELEASE_TAG $BIN_PATH
         env:
           BIN: ${{ inputs.binary }}
+          BIN_PATH: "target/release/${{ inputs.binary }}" 
           RELEASE_TAG: ${{ inputs.pushed_tag }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
