@@ -33,10 +33,17 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
+          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-gcc
       - name: Cargo
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
           rustup update nightly && rustup default nightly
-          rustup component add "rust-std-${{ inputs.target }}"
+          rustup component add "${{ inputs.target }}"
           cargo build --release
+      - name: Publish
+        run: |
+          ls -al target/release/*
+        env:
+          BIN: ${{ inputs.binary }}
+          RELEASE_TAG: ${{ inputs.pushed_tag }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
