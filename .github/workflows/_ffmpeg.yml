@@ -30,10 +30,25 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
+
       - name: Install dependencies
+        if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends clang pkg-config yasm nasm musl-tools tree
+          sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
+
+      - name: Install dependencies (macOS)
+        if: matrix.platform == 'macos-latest'
+        run: brew install clang curl pkg-config yasm nasm
+
+      - name: Install dependencies (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: |
+          choco install llvm
+          choco install curl
+          choco install yasm
+          choco install nasm
+
       - name: Cargo
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
