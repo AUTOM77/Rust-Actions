@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install dependencies (Unix)
         if: ${{ inputs.platform != 'windows-latest' }}
         run: |
           if [ "${{ inputs.platform }}" = "ubuntu-latest" ]; then
@@ -45,13 +45,11 @@ jobs:
           choco install llvm
           choco install yasm
           choco install nasm
-
-        
-      # - name: Cargo
-      #   run: |
-      #     curl -fsSL https://sh.rustup.rs | sh -s -- -y
-      #     rustup update nightly && rustup default nightly
-      #     cargo build --release
+      - name: Cargo Build
+        run: |
+          curl -fsSL https://sh.rustup.rs | sh -s -- -y
+          rustup update nightly && rustup default nightly
+          cargo build --release
       # - name: Publish
       #   run: |
       #     tree -L 3
