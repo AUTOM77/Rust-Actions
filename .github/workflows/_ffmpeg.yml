@@ -35,7 +35,7 @@ jobs:
         run: |
           if [ "${{ inputs.platform }}" = "ubuntu-latest" ]; then
             sudo apt update
-            sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
+            sudo apt install -y --no-install-recommends clang llvm curl pkg-config yasm nasm
           elif [ "${{ inputs.platform }}" = "macos-latest" ]; then
             brew install llvm yasm nasm
           fi
@@ -46,6 +46,7 @@ jobs:
           choco install yasm
           choco install nasm
       - name: Cargo Build
+        if: ${{ inputs.platform != 'windows-latest' }}
         run: |
           curl -fsSL https://sh.rustup.rs | sh -s -- -y
           rustup update nightly && rustup default nightly
