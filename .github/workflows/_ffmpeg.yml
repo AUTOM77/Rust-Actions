@@ -38,13 +38,13 @@ jobs:
           elif [ "${{ inputs.platform }}" = "macos-latest" ]; then
             brew install llvm yasm nasm
           fi
-
       - name: Install dependencies(windows)
+        if: ${{ inputs.platform == "windows-latest" }}
         run: |
           choco install llvm
           choco install yasm
           choco install nasm
-        if: ${{ inputs.platform == "windows-latest" }}
+        
       # - name: Cargo
       #   run: |
       #     curl -fsSL https://sh.rustup.rs | sh -s -- -y
