@@ -33,26 +33,29 @@ jobs:
 
     - name: Install dependencies
       run: |
-        if [ "${{ inputs.platform }}" = 'ubuntu-latest' ]; then
-          sudo apt update
-          sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
-        elif [ "${{ inputs.platform }}" = 'macos-latest' ]; then
-          brew install clang curl pkg-config yasm nasm
-        elif [ "${{ inputs.platform }}" = 'windows-latest' ]; then
-          choco install llvm
-          choco install curl
-          choco install yasm
-          choco install nasm
-        fi
-      - name: Cargo
-        run: |
-          curl -fsSL https://sh.rustup.rs | sh -s -- -y
-          rustup update nightly && rustup default nightly
-          cargo build --release
-      - name: Publish
-        run: |
-          tree -L 3
-        env:
-          BIN: ${{ inputs.binary }}
-          RELEASE_TAG: ${{ inputs.pushed_tag }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        echo ${{ inputs.platform }}
+    # - name: Install dependencies
+    #   run: |
+    #     if [ "${{ inputs.platform }}" = 'ubuntu-latest' ]; then
+    #       sudo apt update
+    #       sudo apt install -y --no-install-recommends clang curl pkg-config yasm nasm
+    #     elif [ "${{ inputs.platform }}" = 'macos-latest' ]; then
+    #       brew install clang curl pkg-config yasm nasm
+    #     elif [ "${{ inputs.platform }}" = 'windows-latest' ]; then
+    #       choco install llvm
+    #       choco install curl
+    #       choco install yasm
+    #       choco install nasm
+    #     fi
+      # - name: Cargo
+      #   run: |
+      #     curl -fsSL https://sh.rustup.rs | sh -s -- -y
+      #     rustup update nightly && rustup default nightly
+      #     cargo build --release
+      # - name: Publish
+      #   run: |
+      #     tree -L 3
+      #   env:
+      #     BIN: ${{ inputs.binary }}
+      #     RELEASE_TAG: ${{ inputs.pushed_tag }}
+      #     TOKEN: ${{ secrets.GITHUB_TOKEN }}
