@@ -14,10 +14,10 @@ on:
     outputs:
       tag:
         description: "Pushed tag version"
-        value: ${{ jobs.call.outputs.tag }}
+        value: ${{ jobs.new_tag.outputs.tag }}
 
 jobs:
-  tag:
+  new_tag:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.push.outputs.tag }}
