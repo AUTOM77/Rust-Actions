@@ -17,7 +17,7 @@ on:
         value: ${{ jobs.call.outputs.tag }}
 
 jobs:
-  call:
+  tag:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.push.outputs.tag }}
