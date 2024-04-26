@@ -33,7 +33,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        echo ${{ inputs.platform }}
+        echo "fuck"
     # - name: Install dependencies
     #   run: |
     #     if [ "${{ inputs.platform }}" = 'ubuntu-latest' ]; then
