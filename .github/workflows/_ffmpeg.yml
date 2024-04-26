@@ -31,6 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
+        if: ${{ inputs.platform != 'windows-latest' }}
         run: |
           if [ "${{ inputs.platform }}" = "ubuntu-latest" ]; then
             sudo apt update
