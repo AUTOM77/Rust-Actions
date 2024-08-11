@@ -30,6 +30,8 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
+      - name: Set LTO to true
+        run: sed -i 's/lto = false/lto = true/g' Cargo.toml
       - uses: taiki-e/upload-rust-binary-action@v1.18.0
         with:
           bin: ${{ inputs.binary }}
