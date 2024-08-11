@@ -30,12 +30,15 @@ jobs:
     runs-on: ${{ inputs.platform }}
     steps:
       - uses: actions/checkout@v4
-      - name: List directory contents
-        run: ls -la
-      - name: Check if Cargo.toml exists
-        run: test -f ./Cargo.toml && echo "Cargo.toml found" || echo "Cargo.toml not found"
-      - name: Set LTO to true
-        run: sed -i 's/lto = false/lto = true/g' ./Cargo.toml
+      - name: Set LTO to true (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $fileContent = Get-Content ./Cargo.toml
+          $fileContent = $fileContent -replace 'lto = false', 'lto = true'
+          Set-Content ./Cargo.toml $fileContent
+      - name: Set LTO to true (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: perl -pi -e 's/lto = false/lto = true/g' ./Cargo.toml
       - uses: taiki-e/upload-rust-binary-action@v1.18.0
         with:
           bin: ${{ inputs.binary }}
