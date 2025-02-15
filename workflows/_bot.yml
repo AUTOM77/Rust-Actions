@@ -1,4 +1,4 @@
-name: bot_ffmpeg
+name: bot
 
 on:
   workflow_call:
@@ -11,10 +11,6 @@ on:
         default: '0'
         required: true
         type: string
-      external:
-        default: ''
-        required: false
-        type: string
       note_hash:
         default: 'None'
         required: false
@@ -22,7 +18,7 @@ on:
 
 jobs:
   ready:
-    uses: ./.github/workflows/cargo-version.yml
+    uses: ./.github/workflows/parse-info.yml
     with:
       cargo_path: ${{ inputs.cargo_loc }}
 
@@ -36,7 +32,7 @@ jobs:
   publish:
     needs:
       - push
-    uses: ./.github/workflows/pre-release.yml
+    uses: ./.github/workflows/create-release.yml
     with:
       push_tag: ${{ needs.push.outputs.tag }}
       note: add ${{ needs.push.outputs.tag }}
@@ -44,17 +40,8 @@ jobs:
   cross-release:
     needs:
       - publish
-    uses: ./.github/workflows/_ffmpeg.yml
-    strategy:
-      matrix:
-        include:
-          - platform: 'ubuntu-latest'
-            target: 'x86_64-unknown-linux-gnu'
-          - platform: macos-latest
-            target: x86_64-apple-darwin
+    uses: ./.github/workflows/release-matrix.yml
     with:
       binary: ${{ inputs.cargo_bin }}
       pushed_tag: ${{ needs.publish.outputs.pushed_tag }}
-      target: ${{ matrix.target }}
-      platform: ${{ matrix.platform }}
     

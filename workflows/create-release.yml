@@ -1,13 +1,12 @@
-name: Pre-release
+name: create-release
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CARGO_TERM_COLOR: always
 
 on:
   workflow_call:
     inputs:
-      push_tag:
+      tag:
         default: '0'
         required: true
         type: string
@@ -18,9 +17,9 @@ on:
     outputs:
       pushed_tag:
         description: "Pushed tag version"
-        value: ${{ jobs.release.outputs.pushed_tag }}
+        value: ${{ jobs.create-release.outputs.pushed_tag }}
 jobs:
-  release:
+  create-release:
     runs-on: ubuntu-latest
     outputs:
       pushed_tag: ${{ steps.release.outputs.pushed_tag }}
@@ -34,5 +33,5 @@ jobs:
         name: Release
         shell: bash
         env:
-          PUSH_TAG: ${{ inputs.push_tag }}
+          PUSH_TAG: ${{ inputs.tag }}
           NOTE: ${{ inputs.note }}

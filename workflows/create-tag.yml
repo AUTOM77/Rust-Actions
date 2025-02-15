@@ -1,8 +1,7 @@
-name: Create-tag
+name: create-tag
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CARGO_TERM_COLOR: always
 
 on:
   workflow_call:
@@ -14,10 +13,10 @@ on:
     outputs:
       tag:
         description: "Pushed tag version"
-        value: ${{ jobs.new_tag.outputs.tag }}
+        value: ${{ jobs.create-tag.outputs.tag }}
 
 jobs:
-  new_tag:
+  create-tag:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.push.outputs.tag }}
