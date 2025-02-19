@@ -8,9 +8,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write
-
 jobs:
   ready:
     uses: ./.github/workflows/parse-info.yml
@@ -35,13 +32,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: x86_64-unknown-linux-musl
-            platform: ubuntu-latest
           - target: x86_64-unknown-linux-gnu
             platform: ubuntu-latest
-          - target: aarch64-unknown-linux-musl
-            platform: ubuntu-latest
           - target: aarch64-unknown-linux-gnu
+            platform: ubuntu-latest
+          - target: powerpc64le-unknown-linux-gnu
+            platform: ubuntu-latest
+          - target: s390x-unknown-linux-gnu
             platform: ubuntu-latest
           - target: aarch64-apple-darwin
             platform: macos-latest
@@ -51,11 +48,11 @@ jobs:
             platform: windows-latest
           - target: x86_64-pc-windows-msvc
             platform: windows-latest
-          - target: powerpc64le-unknown-linux-gnu
+          - target: x86_64-unknown-linux-musl
             platform: ubuntu-latest
-          - target: s390x-unknown-linux-gnu
+          - target: aarch64-unknown-linux-musl
             platform: ubuntu-latest
-          - target: riscv64gc-unknown-linux-gnu
+          - target: powerpc64le-unknown-linux-musl
             platform: ubuntu-latest
     with:
       path: ${{ inputs.path }}

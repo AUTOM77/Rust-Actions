@@ -20,9 +20,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write
-
 jobs:
   ready:
     uses: ./.github/workflows/parse-info.yml
@@ -36,7 +33,6 @@ jobs:
       - ready
     steps:
       - uses: actions/checkout@v4
-
       - name: Set LTO to true (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -49,6 +45,11 @@ jobs:
       - uses: taiki-e/github-actions/install-rust@main
         with:
           toolchain: nightly
+      - name: Install cross-compilation tools
+        uses: taiki-e/setup-cross-toolchain-action@v1
+        with:
+          target: ${{ inputs.target }}
+        if: contains(inputs.target, 'linux-musl')
       - run: echo "RUSTFLAGS=${RUSTFLAGS} -C target-feature=+crt-static" >> "${GITHUB_ENV}"
         if: endsWith(inputs.target, 'windows-msvc')
       - uses: taiki-e/upload-rust-binary-action@v1.24.0
