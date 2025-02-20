@@ -39,7 +39,7 @@ jobs:
       - name: Set LTO to true (Linux/macOS)
         if: runner.os != 'Windows'
         run: perl -pi -e 's/lto = false/lto = true/g' ./Cargo.toml
-      - uses: taiki-e/upload-rust-binary-action@v1.18.0
+      - uses: taiki-e/upload-rust-binary-action@v1.24.0
         with:
           bin: ${{ inputs.binary }}
           target: ${{ inputs.target }}
