@@ -22,11 +22,12 @@ jobs:
       tag: ${{ steps.push.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
-      - 
-        id: push
+        with:
+          fetch-tags: true
+      - id: push
         run: |
           version="${{ inputs.version }}"
-          git tag $version && git push --tags
+          git tag $version && git push --tags || true
           echo tag=$version >> $GITHUB_OUTPUT
         name: Push Tag
         shell: bash

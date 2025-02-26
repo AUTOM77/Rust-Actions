@@ -33,6 +33,9 @@ jobs:
       - ready
     steps:
       - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: 'true'
       - name: Set LTO to true (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -46,7 +49,7 @@ jobs:
         with:
           toolchain: nightly
       - name: Install cross-compilation tools
-        uses: taiki-e/setup-cross-toolchain-action@v1
+        uses: taiki-e/setup-cross-toolchain-action@v1.28.3
         with:
           target: ${{ inputs.target }}
         if: contains(inputs.target, 'linux-musl')
